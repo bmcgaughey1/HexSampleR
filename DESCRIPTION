@@ -1,6 +1,6 @@
 Package: HexSampleR
 Title: Create Sample Points For Polygon(s)
-Version: 0.0.0.9000
+Version: 1.0.0.9000
 Authors@R: 
     person(given = "Robert",
            family = "McGaughey",

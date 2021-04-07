@@ -13,3 +13,10 @@ browseVignettes("HexSampleR")
 
 # rebuild readme.md
 devtools::build_readme()
+
+# build vignettes and copy them to inst/doc in project
+# this should make them available when installing from github
+tools::buildVignettes(dir = ".", tangle=TRUE)
+dir.create("inst")
+dir.create("inst/doc")
+file.copy(dir("vignettes", full.names=TRUE), "inst/doc", overwrite=TRUE)

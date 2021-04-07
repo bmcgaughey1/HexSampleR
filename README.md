@@ -16,15 +16,15 @@ program of the USDA Forest Service.
 
 **HexSampleR** is only available as a development version. The
 **devtools** package is required to install **HexSampleR**. If you have
-not previously used **devtools**, use the commented lines of code to
-install and load the package.
+not previously used **devtools**, use the commented line of code to
+install the package.
 
 You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-# library(devtools)
+library(devtools)
 devtools::install_github("bmcgaughey1/HexSampleR")
 ```
 

@@ -11,6 +11,8 @@ Description: HexSampleR generates a set of sample points contained within a poly
   Multi-part polygons are allowed. The number of sample points will be distributed over the parts.
 License: CC0
 Encoding: UTF-8
+URL: https://github.com/bmcgaughey1/HexSampleR
+BugReports: https://github.com/bmcgaughey1/HexSampleR/issues
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

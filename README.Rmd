@@ -26,7 +26,8 @@ Inventory and Analysis program of the USDA Forest Service.
 
 **HexSampleR** is only available as a development version. The **devtools** package is required to
 install **HexSampleR**. If you have not previously used **devtools**, use the commented line of
-code to install the package.
+code to install the package. Note that this will also install several additional packages needed
+for devtools. If you do not want the vignette, set *build_vignettes = FALSE*.
 
 You can install the development version from [GitHub](https://github.com/) with:
 

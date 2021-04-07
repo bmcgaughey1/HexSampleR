@@ -14,13 +14,17 @@ program of the USDA Forest Service.
 
 ## Installation
 
-**HexSampleR** is only available as a development version.
+**HexSampleR** is only available as a development version. The
+**devtools** package is required to install **HexSampleR**. If you have
+not previously used **devtools**, use the commented lines of code to
+install and load the package.
 
 You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
+# library(devtools)
 devtools::install_github("bmcgaughey1/HexSampleR")
 ```
 
@@ -37,14 +41,8 @@ dividing by 3.2808.
 
 ``` r
 library(sf)
-#> Warning: package 'sf' was built under R version 4.0.3
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
 library(raster)
-#> Warning: package 'raster' was built under R version 4.0.3
-#> Loading required package: sp
-#> Warning: package 'sp' was built under R version 4.0.3
 library(ggplot2)
-#> Warning: package 'ggplot2' was built under R version 4.0.3
 library(HexSampleR)
 
 # load a polygon representing Snohomish County Washington and reproject from longlat to UTM 10N
@@ -67,7 +65,6 @@ sample_pts <- generatePolygonSamplePoints(WASnoCo
                                           , perturb = TRUE
                                           , perturbMultiplier = 0.1
                                           )
-#> Warning in proj4string(obj): CRS object has comment, which is lost in output
 
 ggplot(WASnoCo) +
   ggtitle("Hexagonal Grid of Sample Points With Random Offset") +

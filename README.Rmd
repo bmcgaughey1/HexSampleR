@@ -24,12 +24,15 @@ Inventory and Analysis program of the USDA Forest Service.
 
 ## Installation
 
-**HexSampleR** is only available as a development version. 
+**HexSampleR** is only available as a development version. The **devtools** package is required to
+install **HexSampleR**. If you have not previously used **devtools**, use the commented lines of
+code to install and load the package.
 
 You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
+# library(devtools)
 devtools::install_github("bmcgaughey1/HexSampleR")
 ```
 ## Example
@@ -40,7 +43,7 @@ compute the cell size needed to generate the sample points given a desired sampl
 and sampling pattern. Note that the units for *cellsize* will be feet since the sample area is in 
 acres so we need to explicitly convert to meters to match the UTM projection by dividing by 3.2808.
 
-```{r example}
+```{r example, message=FALSE, warning=FALSE}
 library(sf)
 library(raster)
 library(ggplot2)

@@ -1,0 +1,28 @@
+Package: HexSampleR
+Title: Create Sample Points For Polygon(s)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Robert",
+           family = "McGaughey",
+           role = c("aut", "cre"),
+           email = "robert.mcgaughey@usda.gov")
+Description: HexSampleR generates a set of sample points contained within a polygon feature(s).
+  Given an input polygon(s), HexSampleR creates a set of sample points within the polygon. 
+  Multi-part polygons are allowed. The number of sample points will be distributed over the parts.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    rgdal,
+    sf,
+    raster,
+    rgeos,
+    sp,
+    ggplot2
+Suggests: 
+    knitr
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

@@ -1,0 +1,74 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# HexSampleR
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The **HexSampleR** package is designed to facilitate the creation of sample point locations that 
+represent a specific land area such as the area sampled by a single plot within the Forest 
+Inventory and Analysis program of the USDA Forest Service.
+
+## Installation
+
+**HexSampleR** is only available as a development version. 
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("bmcgaughey1/HexSampleR")
+```
+## Example
+
+This example produces a set of sample points for Snohomish County, Washington. The points represent a 
+hexagonal grid with some random offsets. the example uses the *computeCellSize()* helper function to 
+compute the cell size needed to generate the sample points given a desired sample area (6000 acres)
+and sampling pattern. Note that the units for *cellsize* will be feet since the sample area is in 
+acres so we need to explicitly convert to meters to match the UTM projection by dividing by 3.2808.
+
+```{r example}
+library(sf)
+library(raster)
+library(ggplot2)
+library(HexSampleR)
+
+# load a polygon representing Snohomish County Washington and reproject from longlat to UTM 10N
+WASnoCo <- WASnoCo
+
+# reproject into UTM zone 10...generatePolygonSamplePoints() won't work with data in LAT-LON
+WASnoCo <- st_transform(WASnoCo, crs = 26910)
+
+# Creates a set of sample points on a regular hexagonal grid with each point representing
+# approximately 6000 acres. This is the area that corresponds to the area sampled by a single FIA plot.
+# Offset the points by a random amount to produce a slightly irregular hexagonal grid.
+pattern <- "hexagonal"
+cellsize <- computeCellSize(6000, aunits = "acre", pattern = pattern) / 3.2808
+
+sample_pts <- generatePolygonSamplePoints(WASnoCo
+                                          , polyBuffer = cellsize / 2
+                                          , pattern = pattern
+                                          , gridSpacing = cellsize
+                                          , IDColumnLabel = "NAME"
+                                          , perturb = TRUE
+                                          , perturbMultiplier = 0.1
+                                          )
+
+ggplot(WASnoCo) +
+  ggtitle("Hexagonal Grid of Sample Points With Random Offset") +
+  geom_sf(aes(fill = COUNTYFP), show.legend = FALSE) +
+  geom_sf(data = sample_pts, colour = "black", size = 2)
+```

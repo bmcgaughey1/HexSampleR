@@ -16,20 +16,20 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette provides examples for the HexSampleR package developed by Robert J. McGaughey with the 
-USDA Forest Service, Pacific Northwest Research Station. The HexSampleR package is designed to facilitate the 
+This vignette provides examples for the **HexSampleR** package developed by Robert J. McGaughey with the 
+USDA Forest Service, Pacific Northwest Research Station. The **HexSampleR** package is designed to facilitate the 
 creation of sample point locations that represent a specific land area such as the area sampled by a single
 plot within the Forest Inventory and Analysis program of the USDA Forest Service.
 
-The examples presented in this document use a single polygon. However, the generatePolygonSamplePoints()
+The examples presented in this document use a single polygon. However, the *generatePolygonSamplePoints()*
 function accepts Spatial* or sf objects containing multiple features, each of which may contain multiple
 polygons. With multiple features, the sampling logic demonstrated in this document is applied to each feature.
 If the feature contains multiple polygons, sample points are spread over all polygons in the feature.
 
-The HexSampleR package, specifically the generatePolygonSamplePoints() function in the package, makes use
-of the spsample() function in the sp package. However, the generatePolygonSamplePoints() function expands
-on the sample generation capabilities in spsample(). In addition, the computeCellSize() function greatly
-simplifies the calculation of the cellsize parameter needed to call spsample() to generate points representing
+The **HexSampleR** package, specifically the *generatePolygonSamplePoints()* function in the package, makes use
+of the *spsample()* function in the **sp** package. However, the *generatePolygonSamplePoints()* function expands
+on the sample generation capabilities in *spsample()*. In addition, the *computeCellSize()* function greatly
+simplifies the calculation of the *cellsize* parameter needed to call *spsample()* to generate points representing
 a specific sample area.
 
 
@@ -43,16 +43,16 @@ library(HexSampleR)
 
 # Load a polygon representing Snohomish County in Washington State
 
-We first load a polygon representing Snohomish County, Washington from the HexSampleR package. This
-polygon was download from the US Census Tiger data using the tigris package. The original polygon has some
+We first load a polygon representing Snohomish County, Washington from the **HexSampleR** package. This
+polygon was download from the US Census Tiger data using the **tigris** package. The original polygon has some
 fields with values too large to be written to a shapefile and some unnecessary fields. All of the problematic
 and unnecessary field were dropped.
 
-The original polygon is in NAD83 longlat. However, the generatePolygonSamplePoints() function will not work
+The original polygon is in NAD83 longlat. However, the *generatePolygonSamplePoints()* function will not work
 with data using units of degrees so we need to project to a coordinate system that uses consistent units. UTM
 zone 10N (EPSG:26910) is appropriate for this county. 
 
-Because the way the data is included with the HexSampleR package, we can access it directly.
+Because of the way the data is included with the **HexSampleR** package, we can access it directly.
 
 ```{r}
 WASnoCo <- WASnoCo
@@ -63,19 +63,19 @@ WASnoCo <- st_transform(WASnoCo, crs = 26910)
 
 # Generate sample points for the county
 
-These examples each produce a set of sample points for Snohomish County. We will use the computeCellSize()
+These examples each produce a set of sample points for Snohomish County. We will use the *computeCellSize()*
 helper function to compute the cell size needed to generate the sample points given a desired sample area
-and sampling pattern. Note that the units for cellsize will be feet since we are providing a sample area in 
+and sampling pattern. Note that the units for *cellsize* will be feet since we are providing a sample area in 
 acres so we need to explicitly convert to meters to match our UTM projection by dividing by 3.2808.
 
-For all examples, we use IDColumnLabel = "NAME" in the call to generatePolygonSamplePoints() to constuct
+For all examples, we use *IDColumnLabel = "NAME"* in the call to *generatePolygonSamplePoints()* to constuct
 an identifier for each sample point using the value in the NAME field of WASnoCo ("Snohomish"). Sample point
 identifiers will be "Snohomish_1", "Snohomish_2", "Snohomish_3", etc.
 
 Example 1 creates a simple grid of sample points such that each point represents approximately 10 square
 miles (6400 acres). The spacing of the points will be such that interior points will represent exactly 10
 square miles but points near the exterior of the county polygon will represent more or less area due to
-irregularities in the county polygon. The polyBuffer parameter in the call to generatePolygonSamplePoints()
+irregularities in the county polygon. The *polyBuffer* parameter in the call to *generatePolygonSamplePoints()*
 buffers the county polygon inward to avoid placing sample points near the edge of the polygon.
 
 Example 2 builds on example 1 but adds a random offset to each sample point location. The offset is up to
@@ -83,7 +83,7 @@ Example 2 builds on example 1 but adds a random offset to each sample point loca
 point in an adjacent cell. Because the sample points are shifted, the area represented by each sample
 point will vary.
 
-Example 3 creates sample points on a regular grid with each point representing 6000 acres. This is the 
+Example 3 creates sample points on a regular hexagonal grid with each point representing 6000 acres. This is the 
 area that corresponds to the area sampled by a single FIA plot. 
 
 Example 4 builds on example 3 by introducing a random offset to the sample point location. In this case,
@@ -91,12 +91,12 @@ the offset is smaller than the distance to the edge of the hexagon so points wil
 of the hexagons. Because the sample points are shifted, the area represented by each sample
 point will vary.
 
-The final example, Example 5, uses the sample developed in example 4 but then subsamples the sample points
-to produce a 10% sample for the county. This is accomplished by adding the count = 0.1 parameter. Values
+The final example, example 5, uses the sample developed in example 4 but then subsamples the sample points
+to produce a 10% sample for the county. This is accomplished by adding the *count = 0.1* parameter. Values
 of count between 0 and 1 are interpreted as the proportion of the sample points to be returned. Note that 
 this subsampling capability cannot be used to generate multiple subsamples without replacement. This type
 of operation would be used to generate a 10% sample for a fixed set of plots but it is beyond the scope
-of the HexSampleR package.
+of the **HexSampleR** package.
 
 ```{r fig.height=4, fig.width=7}
 

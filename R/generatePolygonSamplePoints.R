@@ -9,7 +9,7 @@
 #' @param aunits character string: Units for \code{area}. Valid choices are "acres" and
 #'   "hectares". Only the first letter is needed and case doesn't matter.
 #' @param pattern character string: the desired sampling pattern. Valid choices are "regular"
-#'   and "hexagonal". Only the first letter is needed and cae doesn't matter.
+#'   and "hexagonal". Only the first letter is needed and case doesn't matter.
 #' @return Numeric value used as input to the \code{spsample} function for
 #'   the \code{cellsize} parameter. Units will match the units associated
 #'   with \code{aunits} (feet for acres and meters for hectares).

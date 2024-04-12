@@ -17,10 +17,8 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    rgdal,
-    sf,
     raster,
-    rgeos,
+    sf,
     sp,
     ggplot2
 Suggests: 

@@ -4,7 +4,6 @@
 # HexSampleR
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The **HexSampleR** package is designed to facilitate the creation of
@@ -19,7 +18,7 @@ program of the USDA Forest Service.
 not previously used **devtools**, use the commented line of code to
 install the package. Note that this will also install several additional
 packages needed for devtools. If you do not want the vignette, set
-*build\_vignettes = FALSE*.
+*build_vignettes = FALSE*.
 
 You can install the development version from
 [GitHub](https://github.com/) with:
@@ -34,7 +33,7 @@ devtools::install_github("bmcgaughey1/HexSampleR", build_vignettes = TRUE)
 
 This example produces a set of sample points for Snohomish County,
 Washington. The points represent a hexagonal grid with some random
-offsets. the example uses the *computeCellSize()* helper function to
+offsets. The example uses the *computeCellSize()* helper function to
 compute the cell size needed to generate the sample points given a
 desired sample area (6000 acres) and sampling pattern. Note that the
 units for *cellsize* will be feet since the sample area is in acres so

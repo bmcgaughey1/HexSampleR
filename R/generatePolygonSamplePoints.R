@@ -9,7 +9,7 @@
 #' @param aunits character string: Units for \code{area}. Valid choices are "acres" and
 #'   "hectares". Only the first letter is needed and case doesn't matter.
 #' @param pattern character string: the desired sampling pattern. Valid choices are "regular"
-#'   and "hexagonal". Only the first letter is needed and cae doesn't matter.
+#'   and "hexagonal". Only the first letter is needed and case doesn't matter.
 #' @return Numeric value used as input to the \code{spsample} function for
 #'   the \code{cellsize} parameter. Units will match the units associated
 #'   with \code{aunits} (feet for acres and meters for hectares).
@@ -108,8 +108,8 @@ computeCellSize <- function(
 #'   lattice. While other options are available in (and will be passed to) \code{spsample()},
 #'   their behavior as used in this application is unknown. If "random" is specified, you must
 #'   also specify \code{count}.
-#' @param polyBuffer Distance to reduce the size of the polygon(s) by applying \code{rgeos::gbuffer}
-#'   with \code{width = -polyBuffer}. A value <= 0 will produce no buffer.
+#' @param polyBuffer Distance to reduce the size of the polygon(s) by applying \code{sf::st_buffer}
+#'   with \code{dist = -polyBuffer}. A value <= 0 will produce no buffer.
 #' @param gridSpacing Desired grid size passed to \code{spsample()}.
 #' @param offset Position of the regular sample grid in the unit cell `[0,1] x [0,1]`. The default
 #'   is \code{c(0.5,0.5)} placing the position of the grid at the center of the sample cell.
@@ -220,9 +220,12 @@ generatePolygonSamplePoints <- function(
 
       # buffer the polygon to the inside
       if (polyBuffer > 0) {
-        currentPoly <- rgeos::gBuffer(polys[thePoly, ],
-                                      byid = TRUE,
-                                      width = -polyBuffer)
+        currentPoly <- sf::as_Spatial(
+          sf::st_buffer(sf::st_as_sf(polys[thePoly, ]), dist = -polyBuffer, singleSide = T)
+        )
+        # currentPoly <- rgeos::gBuffer(polys[thePoly, ],
+        #                               byid = TRUE,
+        #                               width = -polyBuffer)
       }
 
       if (currentPoly@polygons[[1]]@area >= minimumArea) {

@@ -39,7 +39,7 @@ devtools::install_github("bmcgaughey1/HexSampleR", build_vignettes = TRUE)
 ## Example
 
 This example produces a set of sample points for Snohomish County, Washington. The points represent a 
-hexagonal grid with some random offsets. the example uses the *computeCellSize()* helper function to 
+hexagonal grid with some random offsets. The example uses the *computeCellSize()* helper function to 
 compute the cell size needed to generate the sample points given a desired sample area (6000 acres)
 and sampling pattern. Note that the units for *cellsize* will be feet since the sample area is in 
 acres so we need to explicitly convert to meters to match the UTM projection by dividing by 3.2808.

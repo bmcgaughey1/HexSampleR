@@ -46,7 +46,7 @@ acres so we need to explicitly convert to meters to match the UTM projection by 
 
 ```{r example, message=FALSE, warning=FALSE}
 library(sf)
-library(raster)
+#library(raster)
 library(ggplot2)
 library(HexSampleR)
 

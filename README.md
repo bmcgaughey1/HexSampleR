@@ -42,7 +42,7 @@ dividing by 3.2808.
 
 ``` r
 library(sf)
-library(raster)
+#library(raster)
 library(ggplot2)
 library(HexSampleR)
 
